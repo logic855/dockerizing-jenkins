@@ -1,0 +1,6 @@
+FROM ubuntu:14.04
+ENV REFRESHED_AT 20150123
+ENV PLUGINS /opt/jenkins/data/plugins
+
+VOLUME ${PLUGINS}
+ADD data/* ${PLUGINS}/

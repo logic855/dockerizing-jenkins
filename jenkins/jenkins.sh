@@ -36,5 +36,5 @@ do
 done
 popd
 
-docker -d &
+ls /opt/jenkins/data/plugins > /opt/jenkins/data/list_plugins.txt
 exec java -jar /opt/jenkins/jenkins.war
