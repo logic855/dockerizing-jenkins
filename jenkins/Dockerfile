@@ -8,7 +8,12 @@ RUN apt-get update -qq && apt-get install -qqy iptables ca-certificates lxc open
 ENV JENKINS_HOME /opt/jenkins/data
 ENV JENKINS_MIRROR http://mirrors.jenkins-ci.org
 
-RUN mkdir -p $JENKINS_HOME/plugins
+RUN mkdir -p $JENKINS_HOME
+
+# Make symbol links to use data containers
+RUN ln -s /opt/jobs $JENKINS_HOME/jobs
+RUN ln -s /opt/plugins $JENKINS_HOME/plugins
+RUN ln -s /opt/config/config.xml $JENKINS_HOME/config.xml
 
 ADD ./jenkins.war /opt/jenkins/jenkins.war
 RUN chmod +x /opt/jenkins/jenkins.war

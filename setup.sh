@@ -20,10 +20,10 @@ docker build -t ${JENKINS_IMAGE_TAG} jenkins
 #docker build --no-cache --rm=true -t "digitalmedia/jenkins" jenkins
 
 echo "Create ${PLUGINS_CONTAINER_NAME} based on ${PLUGINS_IMAGE_TAG}"
-docker run --name ${PLUGINS_CONTAINER_NAME} ${PLUGINS_IMAGE_TAG} ls /opt/jenkins/data/plugins
+docker run --name ${PLUGINS_CONTAINER_NAME} ${PLUGINS_IMAGE_TAG} ls /opt/plugins
 
 echo "Create ${JOBS_CONTAINER_NAME} based on ${JOBS_IMAGE_TAG}"
-docker run --name ${JOBS_CONTAINER_NAME} ${JOBS_IMAGE_TAG} ls /opt/jenkins/data/jobs
+docker run --name ${JOBS_CONTAINER_NAME} ${JOBS_IMAGE_TAG} ls /opt/jobs
 
 echo "Run a container with flemay/jenkins image"
 # -v $PWD/jenkins-plugins/:/opt/jenkins/data/plugins:rw \
