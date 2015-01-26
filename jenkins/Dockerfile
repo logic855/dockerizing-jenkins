@@ -11,7 +11,7 @@ ENV JENKINS_MIRROR http://mirrors.jenkins-ci.org
 RUN mkdir -p $JENKINS_HOME
 
 # Make symbol links to use data containers
-RUN ln -s /opt/jobs $JENKINS_HOME/jobs
+RUN ln -s /opt/projects $JENKINS_HOME/jobs
 RUN ln -s /opt/plugins $JENKINS_HOME/plugins
 RUN ln -s /opt/config/config.xml $JENKINS_HOME/config.xml
 

@@ -3,4 +3,4 @@ ENV REFRESHED_AT 20150123
 ENV PLUGINS /opt/plugins
 
 VOLUME ${PLUGINS}
-ADD data/* ${PLUGINS}/
+ADD plugins/* ${PLUGINS}/

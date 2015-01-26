@@ -1,10 +1,10 @@
 FROM ubuntu:14.04
 ENV REFRESHED_AT 20150123
-ENV JOBS /opt/jobs
+ENV PROJECTS /opt/projects
 ENV CONFIG /opt/config
 
-VOLUME ${JOBS}
-ADD data ${JOBS}/
+VOLUME ${PROJECTS}
+ADD projects ${PROJECTS}/
 
 VOLUME ${CONFIG}
 ADD config ${CONFIG}
