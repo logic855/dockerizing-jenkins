@@ -3,6 +3,7 @@ PLUGINS_IMAGE_TAG="flemay/jenkins-plugins"
 PLUGINS_CONTAINER_NAME="jenkins-plugins"
 PROJECTS_IMAGE_TAG="flemay/jenkins-projects"
 PROJECTS_CONTAINER_NAME="jenkins-projects"
+JENKINS_BASE_IMAGE_TAG="flemay/jenkins-base"
 JENKINS_IMAGE_TAG="flemay/jenkins"
 JENKINS_CONTAINER_NAME="jenkins"
 
@@ -15,8 +16,11 @@ docker build -t ${PLUGINS_IMAGE_TAG} jenkins-plugins
 echo "Build ${PROJECTS_IMAGE_TAG} image"
 docker build -t ${PROJECTS_IMAGE_TAG} jenkins-projects
 
+echo "Build ${JENKINS_BASE_IMAGE_TAG} image"
+docker build -t ${JENKINS_BASE_IMAGE_TAG} jenkins/jenkins-base
+
 echo "Build ${JENKINS_IMAGE_TAG} image"
-docker build -t ${JENKINS_IMAGE_TAG} jenkins
+docker build -t ${JENKINS_IMAGE_TAG} jenkins/jenkins-1.597
 #docker build --no-cache --rm=true -t "digitalmedia/jenkins" jenkins
 
 echo "Create ${PLUGINS_CONTAINER_NAME} based on ${PLUGINS_IMAGE_TAG}"
