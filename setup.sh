@@ -32,6 +32,8 @@ docker run --name ${PLUGINS_CONTAINER_NAME} ${PLUGINS_IMAGE_TAG} ls /opt/plugins
 echo "Create ${PROJECTS_CONTAINER_NAME} based on ${PROJECTS_IMAGE_TAG}"
 docker run --name ${PROJECTS_CONTAINER_NAME} ${PROJECTS_IMAGE_TAG} ls /opt/projects
 
+sh ./restore-projects.sh
+
 echo "Run a container with flemay/jenkins image"
 docker run \
   -p 8080:8080 \

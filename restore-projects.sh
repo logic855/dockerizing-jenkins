@@ -13,8 +13,17 @@ docker rm ${BACKUP_PROJECTS_CONTAINER_NAME}
 
 echo "Create ${BACKUP_PROJECTS_CONTAINER_NAME} based on ${BACKUP_PROJECTS_IMAGE_TAG}"
 docker run \
-  -rm \
+  --rm \
   --name ${BACKUP_PROJECTS_CONTAINER_NAME} \
   --volumes-from ${PROJECTS_CONTAINER_NAME} \
-  ${BACKUP_PROJECTS_IMAGE_TAG} tail -f /root/.ssh/id_rsa.pub
-  #${BACKUP_PROJECTS_IMAGE_TAG} ./service.sh pull
+  ${BACKUP_PROJECTS_IMAGE_TAG} /opt/service.sh pull
+  #${BACKUP_PROJECTS_IMAGE_TAG} tail -f /root/.ssh/id_rsa.pub
+
+#echo "Wait till the backup-projects container is removed"
+#docker inspect ${BACKUP_PROJECTS_CONTAINER_NAME}
+#result=$?
+#until [ ${result} -ne 0 ]; do
+#    sleep 0.1;
+#    docker inspect ${BACKUP_PROJECTS_CONTAINER_NAME}
+#    result=$?
+#done;

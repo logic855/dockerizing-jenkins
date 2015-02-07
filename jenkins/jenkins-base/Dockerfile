@@ -8,11 +8,11 @@ ENV JENKINS_HOME /opt/jenkins/data
 ENV JENKINS_MIRROR http://mirrors.jenkins-ci.org
 
 RUN mkdir -p $JENKINS_HOME
-
+ENV PROJECTS_PATH /opt/projects/dockerized-jenkins-projects
 # Make symbol links to use data containers
-RUN ln -s /opt/projects $JENKINS_HOME/jobs
+RUN ln -s ${PROJECTS_PATH} $JENKINS_HOME/jobs
 RUN ln -s /opt/plugins $JENKINS_HOME/plugins
-RUN ln -s /opt/config/config.xml $JENKINS_HOME/config.xml
+RUN ln -s ${PROJECTS_PATH}/config.xml $JENKINS_HOME/config.xml
 
 ADD ./jenkins.sh /usr/local/bin/jenkins.sh
 RUN chmod +x /usr/local/bin/jenkins.sh
