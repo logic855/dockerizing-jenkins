@@ -1,10 +1,13 @@
+#!/bin/bash
 cat bootmsg.txt
 PLUGINS_IMAGE_TAG="flemay/jenkins-plugins"
 PLUGINS_CONTAINER_NAME="jenkins-plugins"
+
 PROJECTS_IMAGE_TAG="flemay/jenkins-projects"
 PROJECTS_CONTAINER_NAME="jenkins-projects"
+
 JENKINS_BASE_IMAGE_TAG="flemay/jenkins-base"
-JENKINS_IMAGE_TAG="flemay/jenkins"
+JENKINS_IMAGE_TAG="flemay/jenkins:1.597"
 JENKINS_CONTAINER_NAME="jenkins"
 
 echo "Delete all containers"
@@ -30,8 +33,6 @@ echo "Create ${PROJECTS_CONTAINER_NAME} based on ${PROJECTS_IMAGE_TAG}"
 docker run --name ${PROJECTS_CONTAINER_NAME} ${PROJECTS_IMAGE_TAG} ls /opt/projects
 
 echo "Run a container with flemay/jenkins image"
-# -v $PWD/jenkins-plugins/:/opt/jenkins/data/plugins:rw \
-#  -v $PWD/jenkins-jobs/:/opt/jenkins/data/jobs:rw \
 docker run \
   -p 8080:8080 \
   --name ${JENKINS_CONTAINER_NAME} \
@@ -41,8 +42,8 @@ docker run \
   --volumes-from ${PROJECTS_CONTAINER_NAME} \
   ${JENKINS_IMAGE_TAG}
 
-echo "Wait 15 seconds to let Jenkins boots"
-sleep 15
+echo "Wait 20 seconds to let Jenkins boots"
+sleep 20
 
 echo "Open Jenkins in a browser"
 open http://$(boot2docker ip 2>/dev/null):8080
