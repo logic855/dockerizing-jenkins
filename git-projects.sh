@@ -2,7 +2,13 @@
 ACTION=$1
 if [[ "${ACTION}" != "clone" && "${ACTION}" != "push" ]]
 then
-  echo "USAGE: $0 clone|push"
+  echo "USAGE: $0 [clone|push COMMIT_MSG]"
+  exit 1
+fi
+
+if [[ "${ACTION}" == "push" && "${2}" == "" ]]
+  then
+  echo "ERROR push needs a commit message"
   exit 1
 fi
 
@@ -23,6 +29,5 @@ docker run \
   --rm \
   --name ${BACKUP_PROJECTS_CONTAINER_NAME} \
   --volumes-from ${PROJECTS_CONTAINER_NAME} \
-  ${BACKUP_PROJECTS_IMAGE_TAG} /opt/service.sh ${1}
+  ${BACKUP_PROJECTS_IMAGE_TAG} /opt/service.sh ${ACTION} ${2}
   #${BACKUP_PROJECTS_IMAGE_TAG} tail -f /root/.ssh/id_rsa.pub
-
