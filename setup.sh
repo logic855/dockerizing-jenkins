@@ -24,7 +24,6 @@ docker build -t ${JENKINS_BASE_IMAGE_TAG} jenkins/jenkins-base
 
 echo "Build ${JENKINS_IMAGE_TAG} image"
 docker build -t ${JENKINS_IMAGE_TAG} jenkins/jenkins-1.597
-#docker build --no-cache --rm=true -t "digitalmedia/jenkins" jenkins
 
 echo "Create ${PLUGINS_CONTAINER_NAME} based on ${PLUGINS_IMAGE_TAG}"
 docker run --name ${PLUGINS_CONTAINER_NAME} ${PLUGINS_IMAGE_TAG} ls /opt/plugins
@@ -32,7 +31,7 @@ docker run --name ${PLUGINS_CONTAINER_NAME} ${PLUGINS_IMAGE_TAG} ls /opt/plugins
 echo "Create ${PROJECTS_CONTAINER_NAME} based on ${PROJECTS_IMAGE_TAG}"
 docker run --name ${PROJECTS_CONTAINER_NAME} ${PROJECTS_IMAGE_TAG} ls /opt/projects
 
-sh ./restore-projects.sh
+sh ./git-projects.sh clone
 
 echo "Run a container with flemay/jenkins image"
 docker run \
