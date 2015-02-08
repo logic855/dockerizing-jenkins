@@ -47,4 +47,4 @@ echo "Wait 20 seconds to let Jenkins boots"
 sleep 20
 
 echo "Open Jenkins in a browser"
-open http://$(boot2docker ip 2>/dev/null):8080
+echo open http://$(boot2docker ip 2>/dev/null):8080

@@ -29,5 +29,5 @@ docker run \
   --rm \
   --name ${BACKUP_PROJECTS_CONTAINER_NAME} \
   --volumes-from ${PROJECTS_CONTAINER_NAME} \
-  ${BACKUP_PROJECTS_IMAGE_TAG} /opt/service.sh ${ACTION} ${2}
+  ${BACKUP_PROJECTS_IMAGE_TAG} /opt/service.sh ${ACTION} "${2}"
   #${BACKUP_PROJECTS_IMAGE_TAG} tail -f /root/.ssh/id_rsa.pub
