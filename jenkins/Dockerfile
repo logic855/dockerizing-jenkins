@@ -13,12 +13,12 @@ ENV PROJECTS_PATH /opt/projects/dockerized-jenkins-projects
 RUN ln -s ${PROJECTS_PATH}/jobs $JENKINS_HOME/jobs
 RUN ln -s ${PROJECTS_PATH}/config/config.xml $JENKINS_HOME/config.xml
 
+ADD ./jenkins.sh /usr/local/bin/jenkins.sh
+RUN chmod +x /usr/local/bin/jenkins.sh
+
 # Add jenkins executable and plugins
 ADD dockerized-jenkins/jenkins/jenkins-1.597.war /opt/jenkins/jenkins.war
 ADD dockerized-jenkins/plugins ${JENKINS_HOME}/plugins/
-
-ADD ./jenkins.sh /usr/local/bin/jenkins.sh
-RUN chmod +x /usr/local/bin/jenkins.sh
 
 EXPOSE 8080
 
