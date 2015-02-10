@@ -1,15 +1,14 @@
 #!/bin/bash
 PROJECTS_REPO=git@github.com:flemay/dockerized-jenkins-projects.git
 
-ACTION=$1
-
-if [ "$1" == "clone" ]
-then
+function clone {
   echo "Clone ${PROJECTS_REPO}"
   git clone ${PROJECTS_REPO}
-elif [ "${ACTION}" == "push" ]
-then
-  if [ "${2}" == "" ]
+}
+
+function push {
+  msg=$1
+  if [ "${msg}" == "" ]
     then
     echo "ERROR push needs a commit message"
     exit 1
@@ -17,9 +16,21 @@ then
   echo "Add changes, commit and push to ${PROJECTS_REPO}"
   cd dockerized-jenkins-projects
   git add .
-  git commit -m "${2}"
+  git commit -m "${1}"
   git push origin master
-else
-  echo "USAGE: $0 [clone|push COMMIT_MSG]"
-  exit 1
-fi
+}
+
+command=$1
+case "$command" in
+  clone)
+    clone
+    ;;
+  push)
+    push $2
+    ;;
+  *)
+    echo $"Usage: $0 {clone|push}"
+    exit 1
+esac
+
+
