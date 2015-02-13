@@ -15,7 +15,7 @@ function push {
   fi
   echo "Add changes, commit and push to ${PROJECTS_REPO}"
   cd dockerized-jenkins-projects
-  git add .
+  git add --all
   git commit -m "${1}"
   git push origin master
 }
@@ -29,7 +29,7 @@ case "$command" in
     push $2
     ;;
   *)
-    echo $"Usage: $0 {clone|push}"
+    echo $"Usage: $0 {clone|push} [<args>]"
     exit 1
 esac
 

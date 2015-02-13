@@ -1,5 +1,6 @@
 #!/bin/bash
 ACTION=$1
+
 if [[ "${ACTION}" != "clone" && "${ACTION}" != "push" ]]
 then
   echo "USAGE: $0 [clone|push COMMIT_MSG]"
