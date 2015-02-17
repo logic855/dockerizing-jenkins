@@ -1,0 +1,8 @@
+---
+- hosts: 127.0.0.1
+  vars:
+    - docker_cmd: /usr/bin/docker
+    - docker_run: "{{ docker_cmd }} run"
+  tasks:
+    - name: create Jenkins container
+      command: "{{ docker_run }} -p 8080:8080 --name jenkins -d flemay/jenkins"
