@@ -7,13 +7,11 @@
     - docker_remove: "{{ docker_cmd }} rm"
   tasks:
     - name: build projects image
-      command: "{{ docker_build }} -t flemay/jenkins-projects ../images/jenkins-projects"
-
-    - name: build jenkins image
-      command: "{{ docker_build }} -t flemay/jenkins ../images/jenkins"
-
-    - name: build git-projects image
-      command: "{{ docker_build }} -t flemay/git-projects ../images/git-projects"
+      command: "{{ docker_build }} -t flemay/{{ item }} ../images/{{ item }}"
+      with_items:
+        - jenkins-projects
+        - git-projects
+        - jenkins
 
     - name: delete containers
       command: "{{ docker_remove }} -f {{ item }}"
