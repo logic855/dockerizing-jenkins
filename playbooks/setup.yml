@@ -3,6 +3,24 @@
   vars:
     - docker_cmd: /usr/bin/docker
     - docker_run: "{{ docker_cmd }} run"
+    - docker_build: "{{ docker_cmd }} build"
+    - docker_remove: "{{ docker_cmd }} rm"
   tasks:
+    - name: delete containers
+      command: "{{ docker_remove }} -f {{ item }}"
+      with_items:
+        - jenkins-projects
+        - jenkins
+      ignore_errors: yes
+
+    - name: create projects container
+      command: "{{ docker_run }} --name jenkins-projects flemay/jenkins-projects"
+
+    - name: pull projects from gihub into the projects container
+      command: "{{ docker_run }} --rm --volumes-from jenkins-projects flemay/git-projects /opt/service.sh clone"
+
     - name: create Jenkins container
-      command: "{{ docker_run }} -p 8080:8080 --name jenkins -d flemay/jenkins"
+      command: "{{ docker_run }} -p 8080:8080 --name jenkins -d --volumes-from jenkins-projects flemay/jenkins"
+
+    - name: display jenkins url
+      debug: msg=http:{{ ansible_env.DOCKER_HOST }}
