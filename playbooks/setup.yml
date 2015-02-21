@@ -26,8 +26,15 @@
     - name: pull projects from gihub into the projects container
       command: "{{ docker_run }} --rm --volumes-from jenkins-projects flemay/git-projects /opt/service.sh clone"
 
-    - name: create Jenkins container
-      command: "{{ docker_run }} -p 8080:8080 --name jenkins -d --volumes-from jenkins-projects flemay/jenkins"
+    - name: create Jenkins container that has access to Docker deamon
+      command: >
+        {{ docker_run }} -p 8080:8080
+        --name jenkins -d
+        --volumes-from jenkins-projects
+        --volumes-from ansible
+        -e DOCKER_HOST={{ lookup('env','DOCKER_HOST') }}
+        -e DOCKER_TLS_VERIFY=1
+        flemay/jenkins
 
     - name: display jenkins url
       debug: msg=http:{{ ansible_env.DOCKER_HOST }}
