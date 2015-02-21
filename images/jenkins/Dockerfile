@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM flemay/docker
 ENV REFRESHED_AT 20141127
 
 RUN apt-get update -qq && apt-get install -qqy curl
