@@ -31,7 +31,7 @@
         {{ docker_run }} -p 8080:8080
         --name jenkins -d
         --volumes-from jenkins-projects
-        --volumes-from ansible
+        --volumes-from ansible-bootstrap
         -e DOCKER_HOST={{ lookup('env','DOCKER_HOST') }}
         -e DOCKER_TLS_VERIFY=1
         flemay/jenkins

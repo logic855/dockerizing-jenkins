@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM flemay/ansible
 ENV REFRESHED_AT 20150223
 
 # Update aptitude with new repo
