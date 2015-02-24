@@ -2,8 +2,9 @@
 PROJECTS_REPO=git@github.com:flemay/dockerized-jenkins-projects.git
 
 function clone {
-  echo "Clone ${PROJECTS_REPO}"
-  git clone ${PROJECTS_REPO}
+  #echo "Clone ${PROJECTS_REPO}"
+  #git clone ${PROJECTS_REPO}
+  ansible-playbook -v /opt/playbooks/clone.yml
 }
 
 function push {

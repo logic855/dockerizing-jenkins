@@ -1,0 +1,10 @@
+---
+- hosts: 127.0.0.1
+  vars:
+    - repo: git@github.com:flemay/dockerized-jenkins-projects.git
+    - dest: /opt/projects/dockerized-jenkins-projects
+
+  tasks:
+    - name: clone {{ repo }}
+      git: repo="{{ repo }}" dest="{{ dest }}" accept_hostkey=yes
+
