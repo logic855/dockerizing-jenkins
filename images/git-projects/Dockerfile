@@ -22,5 +22,3 @@ ADD playbooks/ /opt/playbooks
 
 RUN git config --global user.name "Dockerized Jenkins"
 RUN git config --global user.email "dockerizedjenkins@example.com"
-
-WORKDIR /opt/projects
