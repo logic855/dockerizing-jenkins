@@ -2,8 +2,6 @@
 PROJECTS_REPO=git@github.com:flemay/dockerized-jenkins-projects.git
 
 function clone {
-  #echo "Clone ${PROJECTS_REPO}"
-  #git clone ${PROJECTS_REPO}
   ansible-playbook -v /opt/playbooks/clone.yml
 }
 
@@ -14,11 +12,7 @@ function push {
     echo "ERROR push needs a commit message"
     exit 1
   fi
-  echo "Add changes, commit and push to ${PROJECTS_REPO}"
-  cd dockerized-jenkins-projects
-  git add --all
-  git commit -m "${1}"
-  git push origin master
+  ansible-playbook -v /opt/playbooks/push.yml --extra-vars "commit_msg='$msg'"
 }
 
 command=$1
@@ -27,7 +21,7 @@ case "$command" in
     clone
     ;;
   push)
-    push $2
+    push "$2"
     ;;
   *)
     echo $"Usage: $0 {clone|push} [<args>]"

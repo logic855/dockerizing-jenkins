@@ -2,5 +2,5 @@
 - hosts: 127.0.0.1
   tasks:
     - name: clone {{ repo }}
-      git: repo="{{ repo }}" dest="{{ dest }}" accept_hostkey=yes
+      git: repo="{{ repo }}" dest="{{ projects_path }}" accept_hostkey=yes
 
