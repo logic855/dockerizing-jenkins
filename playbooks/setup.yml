@@ -9,28 +9,28 @@
     - name: build projects image
       command: "{{ docker_build }} -t flemay/{{ item }} ../images/{{ item }}"
       with_items:
-        - jenkins-projects
+        - jenkins-data
         - git-projects
         - jenkins
 
     - name: delete containers
       command: "{{ docker_remove }} -f {{ item }}"
       with_items:
-        - jenkins-projects
+        - jenkins-data
         - jenkins
       ignore_errors: yes
 
-    - name: create projects container
-      command: "{{ docker_run }} --name jenkins-projects flemay/jenkins-projects"
+    - name: create jenkins data container
+      command: "{{ docker_run }} --name jenkins-data flemay/jenkins-data"
 
-    - name: pull projects from gihub into the projects container
-      command: "{{ docker_run }} --rm --volumes-from jenkins-projects flemay/git-projects /opt/service.sh clone"
+    - name: pull projects from gihub into the data container
+      command: "{{ docker_run }} --rm --volumes-from jenkins-data flemay/git-projects /opt/service.sh clone"
 
     - name: create Jenkins container that has access to Docker deamon
       command: >
         {{ docker_run }} -p 8080:8080
         --name jenkins -d
-        --volumes-from jenkins-projects
+        --volumes-from jenkins-data
         --volumes-from ansible-bootstrap
         -e DOCKER_HOST={{ lookup('env','DOCKER_HOST') }}
         -e DOCKER_TLS_VERIFY=1

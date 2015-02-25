@@ -1,0 +1,5 @@
+---
+repo: git@github.com:flemay/dockerized-jenkins-projects.git
+dest: /opt/jenkins-data/projects
+
+
