@@ -1,4 +1,4 @@
-FROM flemay/ansible
+FROM flemay/ansible:v1.8.4
 ENV REFRESHED_AT 20150223
 
 # Update aptitude with new repo
