@@ -24,7 +24,7 @@
       command: "{{ docker_run }} --name jenkins-data flemay/jenkins-data"
 
     - name: pull projects from gihub into the data container
-      command: "{{ docker_run }} --rm --volumes-from jenkins-data flemay/git-projects /opt/service.sh clone"
+      command: "{{ docker_run }} --rm --volumes-from jenkins-data flemay/git-projects ./service.sh download"
 
     - name: create Jenkins container that has access to Docker deamon
       command: >
