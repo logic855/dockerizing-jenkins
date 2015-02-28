@@ -7,11 +7,8 @@ RUN apt-get update -qq && apt-get install -qqy iptables ca-certificates lxc open
 ENV JENKINS_HOME /opt/jenkins/data
 
 RUN mkdir -p $JENKINS_HOME
-ENV PROJECTS_PATH /opt/jenkins-data/projects
-
-# Make symbol links to use data container
-RUN ln -s ${PROJECTS_PATH}/jobs $JENKINS_HOME/jobs
-RUN ln -s ${PROJECTS_PATH}/config/config.xml $JENKINS_HOME/config.xml
+ENV JENKINS_DATA_PATH /opt/jenkins-data
+ENV PROJECTS_PATH ${JENKINS_DATA_PATH}/projects
 
 ADD ./jenkins.sh /usr/local/bin/jenkins.sh
 RUN chmod +x /usr/local/bin/jenkins.sh
