@@ -1,4 +1,4 @@
-FROM flemay/docker
+FROM flemay/ansible-docker
 ENV REFRESHED_AT 20141127
 
 RUN apt-get update -qq && apt-get install -qqy curl
@@ -12,6 +12,7 @@ ENV PROJECTS_PATH ${JENKINS_DATA_PATH}/projects
 
 ADD ./jenkins.sh /usr/local/bin/jenkins.sh
 RUN chmod +x /usr/local/bin/jenkins.sh
+ADD playbooks/ /opt/playbooks
 
 # Add jenkins executable and plugins
 ADD dockerized-jenkins/jenkins/jenkins-1.597.war /opt/jenkins/jenkins.war

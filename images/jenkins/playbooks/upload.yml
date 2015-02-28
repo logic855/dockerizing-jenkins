@@ -1,0 +1,18 @@
+---
+- hosts: 127.0.0.1
+  vars:
+    - config_src: "{{ lookup('env','JENKINS_HOME') }}/config.xml"
+    - config_dest: "{{ lookup('env','PROJECTS_PATH') }}/config/config.xml"
+
+  tasks:
+    - name: copy global config from jenkins to shared jenkins-data
+      copy: src="{{ config_src }}" dest="{{ config_dest }}"
+
+    - name: run git-projects container
+      command: >
+        docker run --rm
+        --volumes-from jenkins-data
+        flemay/git-projects
+        ./service.sh upload "{{ commit_msg }}"
+
+
