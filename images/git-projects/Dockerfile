@@ -24,3 +24,4 @@ RUN git config --global user.name "Dockerized Jenkins"
 RUN git config --global user.email "dockerizedjenkins@example.com"
 
 WORKDIR /opt
+ENV PROJECTS_REPO git@github.com:flemay/dockerized-jenkins-projects.git
