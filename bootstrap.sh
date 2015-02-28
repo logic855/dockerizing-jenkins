@@ -16,10 +16,11 @@ echo "Run a container with flemay/ansible-docker image"
 docker run \
   -it \
   --name ansible-bootstrap \
-  -v $(pwd)/playbooks:/opt/ansible/playbooks \
-  -v $(pwd)/images:/opt/ansible/images:ro \
+  -v $(pwd)/playbooks:/opt/volumes/ansible-bootstrap/playbooks \
+  -v $(pwd)/images:/opt/volumes/ansible-bootstrap/images:ro \
   -v $(echo $DOCKER_CERT_PATH):/root/.docker:ro \
   -e DOCKER_HOST=tcp://$(boot2docker ip):2376 \
   -e DOCKER_TLS_VERIFY=1 \
+  -w "/opt/volumes/ansible-bootstrap/playbooks" \
   flemay/ansible-docker bash
 
