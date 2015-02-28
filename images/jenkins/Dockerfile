@@ -7,11 +7,11 @@ RUN apt-get update -qq && apt-get install -qqy iptables ca-certificates lxc open
 ENV JENKINS_HOME /opt/jenkins/data
 
 RUN mkdir -p $JENKINS_HOME
-ENV JENKINS_DATA_PATH /opt/jenkins-data
+ENV JENKINS_DATA_PATH /opt/volumes/jenkins-data
 ENV PROJECTS_PATH ${JENKINS_DATA_PATH}/projects
 
-ADD ./jenkins.sh /usr/local/bin/jenkins.sh
-RUN chmod +x /usr/local/bin/jenkins.sh
+ADD ./jenkins.sh /opt/jenkins.sh
+RUN chmod +x /opt/jenkins.sh
 ADD playbooks/ /opt/playbooks
 
 # Add jenkins executable and plugins
@@ -20,4 +20,4 @@ ADD dockerized-jenkins/plugins ${JENKINS_HOME}/plugins/
 
 EXPOSE 8080
 
-ENTRYPOINT [ "/usr/local/bin/jenkins.sh" ]
+ENTRYPOINT [ "/opt/jenkins.sh" ]

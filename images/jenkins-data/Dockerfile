@@ -1,5 +1,5 @@
 FROM ubuntu:14.04
 ENV REFRESHED_AT 20150223
-ENV JENKINS_DATA /opt/jenkins-data
+ENV JENKINS_DATA /opt/volumes/jenkins-data
 
 VOLUME ${JENKINS_DATA}

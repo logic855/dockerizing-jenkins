@@ -8,7 +8,7 @@
     - name: copy global config from jenkins to shared jenkins-data
       copy: src="{{ config_src }}" dest="{{ config_dest }}"
 
-    - name: run git-projects container
+    - name: upload with git-projects container
       command: >
         docker run --rm
         --volumes-from jenkins-data

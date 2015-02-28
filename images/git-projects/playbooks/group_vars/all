@@ -1,5 +1,5 @@
 ---
 repo: "{{ lookup('env', 'PROJECTS_REPO') }}"
-projects_path: /opt/jenkins-data/projects
+projects_path: /opt/volumes/jenkins-data/projects
 
 
