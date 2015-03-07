@@ -1,0 +1,6 @@
+---
+- hosts: 127.0.0.1
+  tasks:
+    - name: clone {{ repo }}
+      git: repo="{{ repo }}" dest="{{ jenkins_path }}" accept_hostkey=yes
+

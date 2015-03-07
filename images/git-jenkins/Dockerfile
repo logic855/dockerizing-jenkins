@@ -19,8 +19,8 @@ RUN chmod 755 /opt/service.sh
 
 ADD playbooks/ /opt/playbooks
 
-RUN git config --global user.name "git-projects container"
+RUN git config --global user.name "git-jenkins container"
 RUN git config --global user.email "dockerizedjenkins@example.com"
 
 WORKDIR /opt
-ENV PROJECTS_REPO git@github.com:flemay/dockerized-jenkins-projects.git
+ENV JENKINS_REPO git@github.com:flemay/dockerized-jenkins.git

@@ -15,8 +15,15 @@ RUN chmod +x /opt/jenkins.sh
 ADD playbooks/ /opt/playbooks
 
 # Add jenkins executable and plugins
-ADD dockerized-jenkins/jenkins/jenkins-1.597.war /opt/jenkins/jenkins.war
-ADD dockerized-jenkins/plugins ${JENKINS_HOME}/plugins/
+#ADD dockerized-jenkins/jenkins/jenkins-1.597.war /opt/jenkins/jenkins.war
+#ADD dockerized-jenkins/plugins ${JENKINS_HOME}/plugins/
+
+# set executable and plugins
+ENV SHARED_VOLUME_PATH /opt/volumes/dockerized-jenkins
+VOlUME ${SHARED_VOLUME_PATH}
+ADD dockerized-jenkins/  ${SHARED_VOLUME_PATH}/
+RUN ln -s ${SHARED_VOLUME_PATH}/plugins ${JENKINS_HOME}/plugins
+RUN ln -s ${SHARED_VOLUME_PATH}/jenkins/jenkins.war /opt/jenkins/jenkins.war
 
 EXPOSE 8080
 

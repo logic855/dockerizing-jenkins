@@ -1,0 +1,5 @@
+---
+repo: "{{ lookup('env', 'JENKINS_REPO') }}"
+jenkins_path: /opt/volumes/dockerized-jenkins
+
+

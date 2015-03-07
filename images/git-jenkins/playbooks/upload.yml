@@ -1,0 +1,20 @@
+---
+- hosts: 127.0.0.1
+  tasks:
+    - name: check if there are any changes
+      command: git status --porcelain chdir="{{ jenkins_path }}"
+      register: status_result
+
+    - name: add changes
+      command: git add --all chdir="{{ jenkins_path }}"
+      when: status_result.stdout != ""
+
+    - name: commit
+      command: git commit -m "{{ commit_msg }}" chdir="{{ jenkins_path }}"
+      when: status_result.stdout != ""
+
+    - name: push
+      command: git push origin master chdir="{{ jenkins_path }}"
+      when: status_result.stdout != ""
+
+
