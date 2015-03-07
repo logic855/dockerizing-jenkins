@@ -23,4 +23,3 @@ docker run \
   -e DOCKER_TLS_VERIFY=1 \
   -w "/opt/volumes/ansible-bootstrap/playbooks" \
   flemay/ansible-docker bash
-
