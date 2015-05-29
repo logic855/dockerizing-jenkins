@@ -45,7 +45,9 @@ Scenarios
 
 In this scenario, Jenkins will be up and running for the first time.
 
-**bootstrap.sh** is the script that will set up the necessary. It creates an environment that you will be able to run the playbook to setup Jenkins. It will
+#### bootstrap.sh
+
+It is the script that will set up the necessary. It creates an environment that you will be able to run the playbook to setup Jenkins. It will
 
 1. delete all containers
 2. build docker image
@@ -62,6 +64,45 @@ In this scenario, Jenkins will be up and running for the first time.
 > This is not best practice but serve the demo purpose. @TODO what would be the best practice
 - docker host tcp address
 
+Once `bootstrap.sh` has been executed, a container will be running and you will be able to execute `ansible`!
+
+#### setup.yml
+
+This playbook sets up Jenkins. So it will:
+
+1. build the required images
+2. create data container `jenkins-data`
+3. pull the projects with the container `git-jenkins`
+4. create Jenkins container that will have access to Docker Host
+
+To run the playbook: `ansible-playbook setup.yml`
+
+Jenkins should now be running on port 8080.
+
 ### Update Jenkins Jobs
 
+Jenkins has a job named `Save-Projects` which saves projects and configuration. It does not save the history of the jobs.
+
+Here's what the job command shell looks like:
+
+```
+ansible-playbook -v /opt/playbooks/git-projects-upload.yml -e "commit_msg='[$JOB_NAME - $BUILD_NUMBER] This is an automatic commit from Jenkins'"
+```
+
+It calls one of the Jenkins playbooks to commit and push the projects. `git-projects-upload.yml` creates a container from `git-projects` image and delegates the task to it.
+
 ### Update Jenkins Versions
+
+`Save-Jenkins-And-Plugins` is a Jenkins job to commit and push any changes related to Jenkins version and plugins.
+
+```
+ansible-playbook -v /opt/playbooks/git-jenkins-upload.yml -e "commit_msg='[$JOB_NAME - $BUILD_NUMBER] This is an automatic commit from Jenkins'"
+```
+
+It calls a Jenkins playbook `git-jenkins-upload.yml` to do the work. `git-jenkins-upload.yml` creates a container from `git-jenkins` image and delegates the task to it.
+
+What could be next?
+-------------------
+
+- The jobs could be ran every X minutes
+- 
